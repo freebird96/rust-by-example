@@ -239,7 +239,7 @@ fn new_stack(max_size: usize) -> Vec<u32> {
 
 fn pop(stack: &mut Vec<u32>) -> Option<u32> {
     let popped_val = stack.pop();
-    println!("The popped value is {:?}", popped_val as Option<u32>);
+    println!("The popped value is {:?}", popped_val.unwrap());
     popped_val
 }
 
