@@ -232,69 +232,171 @@ and finally you will compute the difference = 225 - 55 = 170.
 //     println!("The sum is {}", sum);
 // }
 
-fn new_stack(max_size: usize) -> Vec<u32> {
-    let vec = Vec::with_capacity(max_size);
-    vec
+// fn new_stack(max_size: usize) -> Vec<u32> {
+//     let vec = Vec::with_capacity(max_size);
+//     vec
+// }
+
+// fn pop(stack: &mut Vec<u32>) -> Option<u32> {
+//     let popped_val = stack.pop();
+//     println!("The popped value is {:?}", popped_val.unwrap());
+//     popped_val
+// }
+
+// fn push(num: u32, max_size: usize, stack: &mut Vec<u32>) {
+//     if stack.len() == max_size {
+//         println!("Stack is full...");
+//     } else {
+//         stack.push(num);
+//         println!("The stack is {:?}", stack);
+//     }
+// }
+
+// fn input() -> u32 {
+//     let mut n = String::new();
+//     std::io::stdin()
+//         .read_line(&mut n)
+//         .expect("Value not found.");
+//     let n: u32 = n.trim().parse().expect("Invalid input");
+//     n
+// }
+
+// fn main() {
+//     println!("Please mention the size of the stack");
+//     let stack_size = input();
+//     let mut new_stack = new_stack(stack_size as usize);
+//     loop {
+//         println!("Choose one....");
+//         println!("1. Push \n2. Pop \n3. Display \n4.Size \n5.Exit");
+//         let choice = input();
+//         match choice {
+//             1 => {
+//                 println!("Enter the input to apppend to the stack.");
+//                 let ele = input();
+//                 push(ele, stack_size as usize, &mut new_stack);
+//             }
+//             2 => {
+//                 pop(&mut new_stack);
+//             }
+//             3 => {
+//                 println!("the current stack is {:?}", new_stack);
+//             }
+//             4 => {
+//                 println!("The size of the current stack is {}", new_stack.len());
+//             }
+//             5 => break,
+//             _ => println!("Exiting..."),
+//         }
+//         println!("Choose 1 to continue and 0 to exit");
+//         let break_choice = input();
+//         println!("Break choice = {}", break_choice);
+//         if break_choice == 1 {
+//             continue;
+//         } else {
+//             println!("Ending the program.");
+//             break;
+//         }
+//     }
+// }
+
+// fn new_stack(size: usize) -> Vec<char> {
+//     let vec = Vec::with_capacity(size);
+//     vec
+// }
+
+// fn input() -> String {
+//     let mut n = String::new();
+//     std::io::stdin()
+//         .read_line(&mut n)
+//         .expect("Value not found.");
+
+//     let n = n.trim().parse().expect("Invalid input");
+//     n
+// }
+
+// fn push(stack: &mut Vec<char>, input: char, max_size: usize) {
+//     if stack.len() == max_size {
+//         println!("The string reached max size");
+//     } else {
+//         stack.push(input);
+//     }
+// }
+
+// fn pop(stack: &mut Vec<char>) -> Option<char> {
+//     stack.pop()
+// }
+
+// fn main() {
+//     println!("Enter the string to be reversed.");
+//     let input_string = input();
+//     let string_size = input_string.len();
+//     let mut stack = new_stack(string_size);
+//     let mut reverse_string = String::new();
+
+//     for i in input_string.chars() {
+//         push(&mut stack, i, string_size);
+//     }
+
+//     for _i in 0..stack.len() {
+//         reverse_string.push(pop(&mut stack).unwrap());
+//     }
+//     println!("The input string is : {:?}", input_string);
+//     println!("The reversed string is : {:?}", reverse_string);
+// }
+
+// Traits and defaults
+
+struct Person {
+    citizenship: String,
+    name: String,
+    age: i32,
+    salary: i32,
+    gender: char,
 }
 
-fn pop(stack: &mut Vec<u32>) -> Option<u32> {
-    let popped_val = stack.pop();
-    println!("The popped value is {:?}", popped_val.unwrap());
-    popped_val
+struct Student {
+    name_stg: String,
+    age: i32,
+    sex: char,
+    country: String,
 }
 
-fn push(num: u32, max_size: usize, stack: &mut Vec<u32>) {
-    if stack.len() == max_size {
-        println!("Stack is full...");
-    } else {
-        stack.push(num);
-        println!("The stack is {:?}", stack);
+trait GeneralInfo {
+    fn info(&self) -> (&str, i32, char);
+    fn country_info(&self) -> &str {
+        "This is a standard case"
     }
 }
 
-fn input() -> u32 {
-    let mut n = String::new();
-    std::io::stdin()
-        .read_line(&mut n)
-        .expect("Value not found.");
-    let n: u32 = n.trim().parse().expect("Invalid input");
-    n
+impl GeneralInfo for Person {
+    fn info(&self) -> (&str, i32, char) {
+        (&self.name, self.age, self.gender)
+    }
+    fn country_info(&self) -> &str {
+        &self.citizenship
+    }
+}
+
+impl GeneralInfo for Student {
+    fn info(&self) -> (&str, i32, char) {
+        (&self.name_stg, self.age, self.sex)
+    }
 }
 
 fn main() {
-    println!("Please mention the size of the stack");
-    let stack_size = input();
-    let mut new_stack = new_stack(stack_size as usize);
-    loop {
-        println!("Choose one....");
-        println!("1. Push \n2. Pop \n3. Display \n4.Size \n5.Exit");
-        let choice = input();
-        match choice {
-            1 => {
-                println!("Enter the input to apppend to the stack.");
-                let ele = input();
-                push(ele, stack_size as usize, &mut new_stack);
-            }
-            2 => {
-                pop(&mut new_stack);
-            }
-            3 => {
-                println!("the current stack is {:?}", new_stack);
-            }
-            4 => {
-                println!("The size of the current stack is {}", new_stack.len());
-            }
-            5 => break,
-            _ => println!("Exiting..."),
-        }
-        println!("Choose 1 to continue and 0 to exit");
-        let break_choice = input();
-        println!("Break choice = {}", break_choice);
-        if break_choice == 1 {
-            continue;
-        } else {
-            println!("Ending the program.");
-            break;
-        }
-    }
+    let person = Person {
+        name: String::from("Noble Varghese"),
+        age: 27,
+        citizenship: String::from("Indian"),
+        salary: 20_000,
+        gender: 'M',
+    };
+    // let student_1 = Student {
+    //     name_stg: String::from("Noble Varghese"),
+    //     age: 22,
+    //     sex: 'M',
+    //     country: String::from("Indian"),
+    // };
+
+    println!("{:?}, {:?}", person.info(), person.country_info());
 }
