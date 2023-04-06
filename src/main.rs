@@ -346,57 +346,156 @@ and finally you will compute the difference = 225 - 55 = 170.
 
 // Traits and defaults
 
-struct Person {
-    citizenship: String,
-    name: String,
-    age: i32,
-    salary: i32,
-    gender: char,
-}
+// struct Person {
+//     citizenship: String,
+//     name: String,
+//     age: i32,
+//     salary: i32,
+//     gender: char,
+// }
 
-struct Student {
-    name_stg: String,
-    age: i32,
-    sex: char,
-    country: String,
-}
+// struct Student {
+//     name_stg: String,
+//     age: i32,
+//     sex: char,
+//     country: String,
+// }
 
-trait GeneralInfo {
-    fn info(&self) -> (&str, i32, char);
-    fn country_info(&self) -> &str {
-        "This is a standard case"
-    }
-}
+// trait GeneralInfo {
+//     fn info(&self) -> (&str, i32, char);
+//     fn country_info(&self) -> &str {
+//         "This is a standard case"
+//     }
+// }
 
-impl GeneralInfo for Person {
-    fn info(&self) -> (&str, i32, char) {
-        (&self.name, self.age, self.gender)
-    }
-    fn country_info(&self) -> &str {
-        &self.citizenship
-    }
-}
+// impl GeneralInfo for Person {
+//     fn info(&self) -> (&str, i32, char) {
+//         (&self.name, self.age, self.gender)
+//     }
+//     fn country_info(&self) -> &str {
+//         &self.citizenship
+//     }
+// }
 
-impl GeneralInfo for Student {
-    fn info(&self) -> (&str, i32, char) {
-        (&self.name_stg, self.age, self.sex)
-    }
-}
+// impl GeneralInfo for Student {
+//     fn info(&self) -> (&str, i32, char) {
+//         (&self.name_stg, self.age, self.sex)
+//     }
+// }
+
+// fn main() {
+//     let person = Person {
+//         name: String::from("Noble Varghese"),
+//         age: 27,
+//         citizenship: String::from("Indian"),
+//         salary: 20_000,
+//         gender: 'M',
+//     };
+//     // let student_1 = Student {
+//     //     name_stg: String::from("Noble Varghese"),
+//     //     age: 22,
+//     //     sex: 'M',
+//     //     country: String::from("Indian"),
+//     // };
+
+//     println!("{:?}, {:?}", person.info(), person.country_info());
+// }
+
+// Functions inside a trait
+
+// use std::vec;
+
+// struct Data {
+//     some_data: Vec<i32>,
+// }
+
+// trait BasicStats {
+//     fn mean(&self) -> f32;
+//     fn variance(&self) -> f32;
+// }
+
+// impl BasicStats for Data {
+//     fn mean(&self) -> f32 {
+//         let mut sum = 0;
+//         for i in self.some_data.iter() {
+//             sum += i;
+//         }
+//         sum as f32 / self.some_data.len() as f32
+//     }
+
+//     fn variance(&self) -> f32 {
+//         let mean = self.mean();
+//         let mut sum_squared_diff = 0.0;
+//         for i in self.some_data.iter() {
+//             sum_squared_diff += (*i as f32 - mean) * (*i as f32 - mean);
+//         }
+//         sum_squared_diff as f32 / self.some_data.len() as f32
+//     }
+// }
+
+// fn main() {
+//     let my_data = Data {
+//         some_data: vec![3,4,5,6,6,7,7,7,8,8]
+//     };
+
+//     println!("The mean of the data is {:?}", my_data.mean());
+//     println!("The variance of the data is {:?}", my_data.variance());
+// }
+
+//Enums
+
+// use std::vec;
+
+// enum Conveyance {
+//     Car = 30,
+//     Train,
+//     Air,
+// }
+// impl Conveyance {
+//     fn travel_allowance(&self, miles: i32) -> f32 {
+//         let allowance = match self {
+//             Conveyance::Air => miles as f32 * 14.0 * 2.0,
+//             Conveyance::Train => miles as f32 * 14.0 * 2.0,
+//             Conveyance::Car => miles as f32 * 14.0 * 2.0,
+//         };
+//         allowance
+//     }
+// }
+
+// fn main() {
+//     let participant_1 = Conveyance::Car;
+//     let participant_3 = Conveyance::Train;
+//     let participant_2 = Conveyance::Air;
+//     println!(
+//         "The value the option is {}",
+//         participant_1.travel_allowance(40)
+//     );
+//     println!(
+//         "The value the option is {}",
+//         participant_3.travel_allowance(50)
+//     );
+//     println!(
+//         "The value the option is {}",
+//         participant_2.travel_allowance(60)
+//     );
+
+//     let some_vec = vec![2, 3, 4, 5, 6];
+//     let result1 = match some_vec.get(3) {
+//         Some(a) => Ok(a),
+//         None => Err("The value does not exits."),
+//     };
+
+//     println!("{:?}", result1);
+// }
+
+// Hashmaps
+
+use std::{collections::HashMap, hash::Hash};
 
 fn main() {
-    let person = Person {
-        name: String::from("Noble Varghese"),
-        age: 27,
-        citizenship: String::from("Indian"),
-        salary: 20_000,
-        gender: 'M',
-    };
-    // let student_1 = Student {
-    //     name_stg: String::from("Noble Varghese"),
-    //     age: 22,
-    //     sex: 'M',
-    //     country: String::from("Indian"),
-    // };
+    let mut person = HashMap::new();
+    person.insert("Noble", 27);
+    person.insert("Robin", 33);
 
-    println!("{:?}, {:?}", person.info(), person.country_info());
+    println!("The age of Noble is {}", person.get("Noble").unwrap());
 }
